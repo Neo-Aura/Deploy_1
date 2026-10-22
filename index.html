@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mayur - Network Engineer transitioning into DevOps and Cloud. Learning Linux, Git, CI/CD, Docker and cloud.">
+  <title>Mayur | Network Engineer → DevOps</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --surface: #131a2e;
+      --surface-2: #1a2340;
+      --text: #e8ecf7;
+      --muted: #9aa6c4;
+      --accent: #5eead4;
+      --accent-2: #818cf8;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    }
+    :root[data-theme="light"] {
+      --bg: #f6f8fc;
+      --surface: #ffffff;
+      --surface-2: #eef2fb;
+      --text: #141a2e;
+      --muted: #5a6786;
+      --accent: #0d9488;
+      --accent-2: #4f46e5;
+      --shadow: 0 10px 30px rgba(20, 26, 46, .08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      transition: background .3s, color .3s;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1100px, 92%); margin-inline: auto; }
+    section { padding: 80px 0; }
+    h2 { font-size: 2rem; margin-bottom: 8px; }
+    .section-sub { color: var(--muted); margin-bottom: 36px; }
+    .gradient-text {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Navbar */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--bg) 80%, transparent);
+      border-bottom: 1px solid var(--surface-2);
+    }
+    nav { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+    .logo { font-weight: 800; font-size: 1.2rem; }
+    .nav-links { display: flex; gap: 26px; align-items: center; list-style: none; }
+    .nav-links a { color: var(--muted); font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .icon-btn {
+      background: var(--surface); color: var(--text);
+      border: 1px solid var(--surface-2); border-radius: 10px;
+      width: 40px; height: 40px; cursor: pointer; font-size: 1.1rem;
+    }
+    .menu-toggle { display: none; }
+
+    /* Hero */
+    .hero { padding: 110px 0 90px; }
+    .hero-inner { display: grid; gap: 22px; max-width: 760px; }
+    .badge {
+      display: inline-block; width: fit-content;
+      padding: 6px 14px; border-radius: 999px;
+      background: var(--surface); border: 1px solid var(--surface-2);
+      color: var(--accent); font-size: .85rem; font-weight: 600;
+    }
+    .hero h1 { font-size: clamp(2.2rem, 6vw, 3.8rem); line-height: 1.15; }
+    .hero p { color: var(--muted); font-size: 1.1rem; max-width: 620px; }
+    .typed { color: var(--accent); font-weight: 700; border-right: 2px solid var(--accent); padding-right: 4px; }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; }
+    .btn {
+      padding: 12px 24px; border-radius: 10px; font-weight: 600;
+      border: 1px solid transparent; cursor: pointer; transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .btn-primary { background: linear-gradient(90deg, var(--accent), var(--accent-2)); color: #07101f; }
+    .btn-outline { border-color: var(--surface-2); background: var(--surface); }
+
+    /* Cards */
+    .grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .card {
+      background: var(--surface); border: 1px solid var(--surface-2);
+      border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);
+      transition: transform .25s, border-color .25s;
+    }
+    .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+    .card h3 { margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: .95rem; }
+    .card .emoji { font-size: 1.8rem; margin-bottom: 10px; display: block; }
+
+    /* About */
+    .about-grid { display: grid; gap: 32px; grid-template-columns: 1.4fr 1fr; align-items: start; }
+    .stats { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+    .stat { background: var(--surface); border-radius: var(--radius); padding: 20px; text-align: center; border: 1px solid var(--surface-2); }
+    .stat strong { display: block; font-size: 1.7rem; color: var(--accent); }
+    .stat span { color: var(--muted); font-size: .85rem; }
+
+    /* Skills */
+    .skill { margin-bottom: 18px; }
+    .skill-head { display: flex; justify-content: space-between; margin-bottom: 6px; font-weight: 600; font-size: .95rem; }
+    .bar { height: 10px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+    .bar span {
+      display: block; height: 100%; width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 999px; transition: width 1.2s ease;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .chip { padding: 6px 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--surface-2); font-size: .85rem; color: var(--muted); }
+
+    /* Contact */
+    form { display: grid; gap: 14px; max-width: 560px; }
+    input, textarea {
+      width: 100%; padding: 13px 15px; border-radius: 10px;
+      border: 1px solid var(--surface-2); background: var(--surface);
+      color: var(--text); font: inherit;
+    }
+    input:focus, textarea:focus { outline: 2px solid var(--accent); border-color: transparent; }
+    textarea { min-height: 130px; resize: vertical; }
+    .social { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+
+    footer { text-align: center; padding: 30px 0; color: var(--muted); border-top: 1px solid var(--surface-2); font-size: .9rem; }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s, transform .7s; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 760px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .menu-toggle { display: inline-block; }
+      .nav-links {
+        position: absolute; top: 66px; left: 0; right: 0;
+        flex-direction: column; gap: 0;
+        background: var(--surface); border-bottom: 1px solid var(--surface-2);
+        max-height: 0; overflow: hidden; transition: max-height .3s;
+      }
+      .nav-links.open { max-height: 360px; }
+      .nav-links li { padding: 14px 24px; width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; scroll-behavior: auto !important; }
+    }
+
+    /* Animated background */
+    #bg-canvas {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      z-index: 0; pointer-events: none;
+    }
+    main, footer { position: relative; z-index: 1; }
+  </style>
+</head>
+<body>
+  <canvas id="bg-canvas"></canvas>
+
+  <header>
+    <nav class="container" aria-label="Main navigation">
+      <a href="#home" class="logo">Mayur<span class="gradient-text">.dev</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><button class="icon-btn" id="themeBtn" aria-label="Toggle theme">🌙</button></li>
+      </ul>
+      <button class="icon-btn menu-toggle" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-inner">
+        <span class="badge">🚀 Open to DevOps / Cloud roles</span>
+        <h1>Hi, I'm <span class="gradient-text">Mayur</span>.<br>Network Engineer becoming a DevOps Engineer.</h1>
+        <p>I'm learning <span class="typed" id="typed"></span> and building real projects to move from networks into automation, containers and the cloud.</p>
+        <div class="btn-row">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container about-grid">
+        <div class="reveal">
+          <h2>About <span class="gradient-text">Me</span></h2>
+          <p class="section-sub">Pune, India</p>
+          <p>I work as a Network Engineer at Innov8 Workspace, where I handle day-to-day network operations and troubleshooting. My networking background gives me a solid foundation in how systems talk to each other, and I'm now building on it with Linux, Git, CI/CD, Docker and cloud platforms.</p>
+          <p style="margin-top:14px">I'm comfortable with rotational shifts and available on a 15-day notice period.</p>
+        </div>
+        <div class="stats reveal">
+          <div class="stat"><strong>10+</strong><span>Months in Networking</span></div>
+          <div class="stat"><strong>15</strong><span>Days Notice</span></div>
+          <div class="stat"><strong>5+</strong><span>Tools Learning</span></div>
+          <div class="stat"><strong>100%</strong><span>Hands-on Focus</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <h2 class="reveal">My <span class="gradient-text">Skills</span></h2>
+        <p class="section-sub reveal">Strong in networking, growing fast in DevOps.</p>
+        <div class="about-grid">
+          <div class="reveal">
+            <div class="skill"><div class="skill-head"><span>Networking</span><span>85%</span></div><div class="bar"><span data-w="85"></span></div></div>
+            <div class="skill"><div class="skill-head"><span>Linux</span><span>60%</span></div><div class="bar"><span data-w="60"></span></div></div>
+            <div class="skill"><div class="skill-head"><span>Git &amp; GitHub</span><span>60%</span></div><div class="bar"><span data-w="60"></span></div></div>
+            <div class="skill"><div class="skill-head"><span>Docker</span><span>45%</span></div><div class="bar"><span data-w="45"></span></div></div>
+            <div class="skill"><div class="skill-head"><span>CI/CD</span><span>40%</span></div><div class="bar"><span data-w="40"></span></div></div>
+            <div class="skill"><div class="skill-head"><span>Cloud</span><span>35%</span></div><div class="bar"><span data-w="35"></span></div></div>
+          </div>
+          <div class="reveal">
+            <div class="card">
+              <h3>Currently learning</h3>
+              <p>Adjust the percentages above to match your real level.</p>
+              <div class="chips">
+                <span class="chip">Linux</span><span class="chip">Git</span><span class="chip">CI/CD</span>
+                <span class="chip">Docker</span><span class="chip">Maven</span><span class="chip">Cloud</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2 class="reveal">Featured <span class="gradient-text">Projects</span></h2>
+        <p class="section-sub reveal">Replace these with your own projects as you build them.</p>
+        <div class="grid">
+          <article class="card reveal"><span class="emoji">🐧</span><h3>Linux Practice Labs</h3><p>Shell scripting, permissions, services and troubleshooting exercises.</p></article>
+          <article class="card reveal"><span class="emoji">🐳</span><h3>Dockerized App</h3><p>Containerize a simple web app and run it with Docker and Compose.</p></article>
+          <article class="card reveal"><span class="emoji">⚙️</span><h3>CI/CD Pipeline</h3><p>Build, test and deploy automatically using GitHub Actions or Jenkins.</p></article>
+          <article class="card reveal"><span class="emoji">📓</span><h3>DevOps Journey Repo</h3><p>A public log of what I learn each week, with notes and code.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2 class="reveal">Let's <span class="gradient-text">Connect</span></h2>
+        <p class="section-sub reveal">Looking for DevOps / Cloud opportunities. Send me a message.</p>
+        <form id="contactForm" class="reveal">
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="email" name="email" placeholder="Your email" required>
+          <textarea name="message" placeholder="Your message" required></textarea>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+          <p id="formMsg" role="status" style="color:var(--accent)"></p>
+        </form>
+        <div class="social reveal">
+          <a class="btn btn-outline" href="https://github.com/your-username" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn-outline" href="https://www.linkedin.com/in/your-username" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-outline" href="https://x.com/your-username" target="_blank" rel="noopener">X (Twitter)</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>© <span id="year"></span> Mayur. Built with HTML, CSS and JavaScript.</footer>
+
+  <script>
+    // Theme toggle (remembers choice)
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+    try { const saved = localStorage.getItem('theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
+    const syncIcon = () => themeBtn.textContent = root.dataset.theme === 'light' ? '☀️' : '🌙';
+    syncIcon();
+    themeBtn.addEventListener('click', () => {
+      root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+      try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+      syncIcon();
+    });
+
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    // Typing effect
+    const words = ['Linux', 'Git', 'CI/CD', 'Docker', 'Cloud'];
+    const typed = document.getElementById('typed');
+    let w = 0, c = 0, del = false;
+    (function type() {
+      const word = words[w];
+      typed.textContent = word.slice(0, c);
+      if (!del && c === word.length) { del = true; return setTimeout(type, 1200); }
+      if (del && c === 0) { del = false; w = (w + 1) % words.length; }
+      c += del ? -1 : 1;
+      setTimeout(type, del ? 60 : 110);
+    })();
+
+    // Scroll reveal + animated skill bars
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visible');
+        e.target.querySelectorAll('.bar span').forEach(b => b.style.width = b.dataset.w + '%');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Contact form (front-end only; connect to Formspree/Netlify/etc. to actually send)
+    document.getElementById('contactForm').addEventListener('submit', e => {
+      e.preventDefault();
+      document.getElementById('formMsg').textContent = 'Thanks! Your message is ready to send once a form service is connected.';
+      e.target.reset();
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Animated network background
+    (function () {
+      const canvas = document.getElementById('bg-canvas');
+      const ctx = canvas.getContext('2d');
+      let w, h, dots;
+      const mouse = { x: null, y: null };
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        const count = Math.min(90, Math.floor((w * h) / 18000));
+        dots = Array.from({ length: count }, () => ({
+          x: Math.random() * w, y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5
+        }));
+      }
+      const color = () => getComputedStyle(root).getPropertyValue('--accent').trim() || '#5eead4';
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        const c = color();
+        ctx.fillStyle = c; ctx.strokeStyle = c;
+        for (let i = 0; i < dots.length; i++) {
+          const a = dots[i];
+          a.x += a.vx; a.y += a.vy;
+          if (a.x < 0 || a.x > w) a.vx *= -1;
+          if (a.y < 0 || a.y > h) a.vy *= -1;
+          ctx.globalAlpha = 0.7;
+          ctx.beginPath(); ctx.arc(a.x, a.y, 2, 0, Math.PI * 2); ctx.fill();
+          for (let j = i + 1; j < dots.length; j++) {
+            const b = dots[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+            if (d < 130) {
+              ctx.globalAlpha = (1 - d / 130) * 0.25;
+              ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+            }
+          }
+          if (mouse.x !== null) {
+            const d = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+            if (d < 160) {
+              ctx.globalAlpha = (1 - d / 160) * 0.5;
+              ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize);
+      window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+      window.addEventListener('mouseleave', () => { mouse.x = mouse.y = null; });
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) { resize(); draw(); }
+    })();
+  </script>
+</body>
+</html>
